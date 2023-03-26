@@ -48,7 +48,7 @@ func Login(c *gin.Context) {
 	var check models.Login
 	db.Table("users").Where("email = ?", login.Email).Take(&check)
 	if check.Email == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "mail or password is incorrect"})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "email or password is incorrect"})
 		return
 	}
 
