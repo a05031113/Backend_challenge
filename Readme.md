@@ -73,7 +73,7 @@ Responses:
 
 I need to create three APIs about member system so I need to create a user first. The first API I wrote is "POST /api/register" to create first user and bcrypt the password.  
 Second, I need to authorize the user is login or not so I also need to choice the way to check. I use JWT to authorize since it is stateless and light weight and put JWT in HTTP-only Cookies to prevent XSS attack. After email and password verified with "POST /api/login", server will set JWT in Cookies.  
-Third, if user login already, user can get information by "GET /api/user". The only information is email, so user will get user's email. If not login or incorrect JWT, server will response 401 Unauthorize.
+Third, if user login already, user can get information by "GET /api/user". The only information is email, so user will get user's email. If not login or incorrect JWT, server will response 401 Unauthorize.  
 Finally, if user logout with "DELETE /api/logout", server will remove JWT's Cookies.
 
 # Q2. SQL syntax
