@@ -79,7 +79,7 @@ Finally, if user logout with "DELETE /api/logout", server will remove JWT's Cook
 # Q2. SQL syntax
 
 ```sql
-SELECT category, COUNT(category) FROM muscle_menus
+SELECT category, COUNT(DISTINCT menus.id) FROM muscle_menus
 INNER JOIN muscles ON muscle_id = muscles.id
 INNER JOIN menus ON menu_id = menus.id
 WHERE muscles.name = "muscle1" or muscles.name = "muscle2"
@@ -88,29 +88,15 @@ GROUP BY category;
 
 ## Result
 
-| category | COUNT(category) |
-| :------: | :-------------: |
-| training |        4        |
-| balance  |        1        |
-| stretch  |        1        |
+| category | COUNT(DISTINCT menus.id) |
+| :------: | :----------------------: |
+| training |            3             |
+| balance  |            1             |
+| stretch  |            1             |
 
 ## Thinking
 
-My answer is different with expected result but I think I am right.
-Based on Dataset:
-
-```sql
-INSERT INTO muscle_menus (muscle_id, menu_id) VALUES (1, 1);
-INSERT INTO muscle_menus (muscle_id, menu_id) VALUES (1, 2);
-INSERT INTO muscle_menus (muscle_id, menu_id) VALUES (1, 3);
-INSERT INTO muscle_menus (muscle_id, menu_id) VALUES (1, 6);
-INSERT INTO muscle_menus (muscle_id, menu_id) VALUES (2, 1);
-INSERT INTO muscle_menus (muscle_id, menu_id) VALUES (2, 4);
-INSERT INTO muscle_menus (muscle_id, menu_id) VALUES (3, 1);
-```
-
-It insert 7 data and only the last one is muscle3, so it will have 6 data which is muscle1 or muscle2.
-Total count of expected result only 5 and my result got 6. So, there is some problem in expected result I think.
+I fix the problem with DISTINCT, which will count each unique value of category once.
 
 # Q3. Investigate how to implement Upload file though API
 
